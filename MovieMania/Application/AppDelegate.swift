@@ -26,7 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enable = true
         
         //        Set initial view Controller
-        let nextVC = storyBoard.instantiateViewController(withIdentifier: "HomeVC") as! HomeVC
+//        let nextVC = storyBoard.instantiateViewController(withIdentifier: "HomeVC") as! HomeVC
+        let nextVC = storyBoard.instantiateViewController(withIdentifier: "AnimationScreenVC") as! AnimationScreenVC
         let nav = redirectToViewController(vcName: nextVC)
         self.window?.rootViewController = nav
         

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8402E25E218C04FC00EFC35A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8402E25D218C04FC00EFC35A /* GoogleService-Info.plist */; };
 		84BBAE0E218ABF21006FE852 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BBAE0D218ABF21006FE852 /* AppDelegate.swift */; };
 		84BBAE10218ABF21006FE852 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BBAE0F218ABF21006FE852 /* HomeVC.swift */; };
 		84BBAE13218ABF21006FE852 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84BBAE11218ABF21006FE852 /* Main.storyboard */; };
@@ -27,7 +28,6 @@
 		84BBAE7E218AFE01006FE852 /* MovieDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BBAE7D218AFE01006FE852 /* MovieDetailVC.swift */; };
 		84BBAE80218B1481006FE852 /* AddRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BBAE7F218B1481006FE852 /* AddRatingView.swift */; };
 		84BBAE84218B15A2006FE852 /* CommentRequestModelVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BBAE83218B15A2006FE852 /* CommentRequestModelVC.swift */; };
-		84BBAE88218B26D5006FE852 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84BBAE87218B26D4006FE852 /* GoogleService-Info.plist */; };
 		84BBAE9F218B2C22006FE852 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84BBAE8F218B2C21006FE852 /* Lato-BlackItalic.ttf */; };
 		84BBAEA0218B2C22006FE852 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84BBAE90218B2C21006FE852 /* Lato-LightItalic.ttf */; };
 		84BBAEA1218B2C22006FE852 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84BBAE91218B2C21006FE852 /* Lato-Semibold.ttf */; };
@@ -44,6 +44,8 @@
 		84BBAEAC218B2C22006FE852 /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84BBAE9C218B2C22006FE852 /* Lato-Thin.ttf */; };
 		84BBAEAD218B2C22006FE852 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84BBAE9D218B2C22006FE852 /* Lato-Italic.ttf */; };
 		84BBAEAE218B2C22006FE852 /* Lato-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84BBAE9E218B2C22006FE852 /* Lato-BoldItalic.ttf */; };
+		84BBAEB0218B63AD006FE852 /* ViewRatingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BBAEAF218B63AD006FE852 /* ViewRatingVC.swift */; };
+		84BBAEB2218B950C006FE852 /* AnimationScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BBAEB1218B950C006FE852 /* AnimationScreenVC.swift */; };
 		A5C1A914D5AAFFB992111725 /* Pods_MovieMania.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02D04FB594B5F6FA8F54051D /* Pods_MovieMania.framework */; };
 		E4A5136C5FE0350124362D76 /* Pods_MovieManiaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1931F7532558F5B6A9E9CD93 /* Pods_MovieManiaUITests.framework */; };
 		F3DF3273B7DB3F2845BA4DBD /* Pods_MovieManiaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7F577A94F5D1A5E2FB720C1 /* Pods_MovieManiaTests.framework */; };
@@ -73,6 +75,7 @@
 		47BAF3FF93EDE77B684A0E90 /* Pods-MovieMania.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieMania.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MovieMania/Pods-MovieMania.debug.xcconfig"; sourceTree = "<group>"; };
 		60F8081A114F1AC714B22CD3 /* Pods-MovieMania.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieMania.release.xcconfig"; path = "Pods/Target Support Files/Pods-MovieMania/Pods-MovieMania.release.xcconfig"; sourceTree = "<group>"; };
 		67630A3B37B9F85768CCCBDA /* Pods-MovieManiaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieManiaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MovieManiaTests/Pods-MovieManiaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8402E25D218C04FC00EFC35A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		84BBAE0A218ABF21006FE852 /* MovieMania.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieMania.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84BBAE0D218ABF21006FE852 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84BBAE0F218ABF21006FE852 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -99,7 +102,6 @@
 		84BBAE7D218AFE01006FE852 /* MovieDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailVC.swift; sourceTree = "<group>"; };
 		84BBAE7F218B1481006FE852 /* AddRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRatingView.swift; sourceTree = "<group>"; };
 		84BBAE83218B15A2006FE852 /* CommentRequestModelVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRequestModelVC.swift; sourceTree = "<group>"; };
-		84BBAE87218B26D4006FE852 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "MovieMania/Config/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		84BBAE8F218B2C21006FE852 /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
 		84BBAE90218B2C21006FE852 /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-LightItalic.ttf"; sourceTree = "<group>"; };
 		84BBAE91218B2C21006FE852 /* Lato-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Semibold.ttf"; sourceTree = "<group>"; };
@@ -116,6 +118,8 @@
 		84BBAE9C218B2C22006FE852 /* Lato-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Thin.ttf"; sourceTree = "<group>"; };
 		84BBAE9D218B2C22006FE852 /* Lato-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Italic.ttf"; sourceTree = "<group>"; };
 		84BBAE9E218B2C22006FE852 /* Lato-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BoldItalic.ttf"; sourceTree = "<group>"; };
+		84BBAEAF218B63AD006FE852 /* ViewRatingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRatingVC.swift; sourceTree = "<group>"; };
+		84BBAEB1218B950C006FE852 /* AnimationScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationScreenVC.swift; sourceTree = "<group>"; };
 		9F0584FD529CB828C4334D83 /* Pods-MovieManiaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieManiaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MovieManiaTests/Pods-MovieManiaTests.release.xcconfig"; sourceTree = "<group>"; };
 		D3D15DA9371ECBDC1C6C9C6F /* Pods-MovieManiaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieManiaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MovieManiaUITests/Pods-MovieManiaUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F7F577A94F5D1A5E2FB720C1 /* Pods_MovieManiaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieManiaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,6 +166,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		8402E25C218C04E100EFC35A /* Configs */ = {
+			isa = PBXGroup;
+			children = (
+				8402E25D218C04FC00EFC35A /* GoogleService-Info.plist */,
+			);
+			path = Configs;
+			sourceTree = "<group>";
+		};
 		84BBAE01218ABF21006FE852 = {
 			isa = PBXGroup;
 			children = (
@@ -187,8 +199,8 @@
 		84BBAE0C218ABF21006FE852 /* MovieMania */ = {
 			isa = PBXGroup;
 			children = (
+				8402E25C218C04E100EFC35A /* Configs */,
 				84BBAE8D218B2BF4006FE852 /* Components */,
-				84BBAE86218B268C006FE852 /* Config */,
 				84BBAE7A218AE6DA006FE852 /* Extension */,
 				84BBAE43218AC2A9006FE852 /* Database */,
 				84BBAE42218AC29F006FE852 /* Application */,
@@ -228,6 +240,8 @@
 				84BBAE0F218ABF21006FE852 /* HomeVC.swift */,
 				84BBAE7D218AFE01006FE852 /* MovieDetailVC.swift */,
 				84BBAE7F218B1481006FE852 /* AddRatingView.swift */,
+				84BBAEAF218B63AD006FE852 /* ViewRatingVC.swift */,
+				84BBAEB1218B950C006FE852 /* AnimationScreenVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -300,15 +314,6 @@
 			children = (
 			);
 			path = SearchMovie;
-			sourceTree = "<group>";
-		};
-		84BBAE86218B268C006FE852 /* Config */ = {
-			isa = PBXGroup;
-			children = (
-				84BBAE87218B26D4006FE852 /* GoogleService-Info.plist */,
-			);
-			name = Config;
-			path = "New Group1";
 			sourceTree = "<group>";
 		};
 		84BBAE8D218B2BF4006FE852 /* Components */ = {
@@ -477,8 +482,8 @@
 				84BBAEA2218B2C22006FE852 /* Lato-ThinItalic.ttf in Resources */,
 				84BBAEA7218B2C22006FE852 /* Lato-Regular.ttf in Resources */,
 				84BBAE13218ABF21006FE852 /* Main.storyboard in Resources */,
+				8402E25E218C04FC00EFC35A /* GoogleService-Info.plist in Resources */,
 				84BBAEA9218B2C22006FE852 /* Lato-Black.ttf in Resources */,
-				84BBAE88218B26D5006FE852 /* GoogleService-Info.plist in Resources */,
 				84BBAEAE218B2C22006FE852 /* Lato-BoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -635,10 +640,12 @@
 			files = (
 				84BBAE10218ABF21006FE852 /* HomeVC.swift in Sources */,
 				84BBAE84218B15A2006FE852 /* CommentRequestModelVC.swift in Sources */,
+				84BBAEB2218B950C006FE852 /* AnimationScreenVC.swift in Sources */,
 				84BBAE4A218ACA59006FE852 /* ViewCorners.swift in Sources */,
 				84BBAE4D218ACFDD006FE852 /* MovieListCell.swift in Sources */,
 				84BBAE51218AD0FF006FE852 /* SearchMovieResponseModel.swift in Sources */,
 				84BBAE4F218AD0ED006FE852 /* SearchMovieRequestModel.swift in Sources */,
+				84BBAEB0218B63AD006FE852 /* ViewRatingVC.swift in Sources */,
 				84BBAE80218B1481006FE852 /* AddRatingView.swift in Sources */,
 				84BBAE7E218AFE01006FE852 /* MovieDetailVC.swift in Sources */,
 				84BBAE53218AD254006FE852 /* NoDataView.swift in Sources */,

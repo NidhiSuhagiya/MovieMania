@@ -26,7 +26,7 @@ class AddRatingView: UIViewController, UITextViewDelegate {
     @IBOutlet var commentBtn: UIButton!
     @IBOutlet var txtView: UITextView!
     @IBOutlet var nameTxt: UITextField!
-
+    
     
     @IBOutlet var ratingOuterView: UIView!
     @IBOutlet var ratingView: SwiftyStarRatingView!
@@ -35,33 +35,34 @@ class AddRatingView: UIViewController, UITextViewDelegate {
     var userRating : CGFloat!
     var db: Firestore!
     var movieId : String!
+    var reviewUserList : [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        UIApplication.shared.statusBarView?.backgroundColor = UIColor.clear
-        //        UIApplication.shared.statusBarView?.shadowOpacity = 0.8
         
         setPlaceholderToTextField()
         firebaseSetup()
         txtView.delegate = self
         ratingOuterView.isHidden = false
         addCommentOuterView.isHidden = true
+        nameTxt.translatesAutoresizingMaskIntoConstraints = false
+        nameTxt.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
         viewCorners.addCornerToView(view: addCommentOuterView, value: 10.0)
         viewCorners.addCornerToView(view: ratingOuterView, value: 10.0)
-
         viewCorners.addCornerToView(view: txtOuterView, value: 10.0)
         viewCorners.addCornerToView(view: commentBtn)
         viewCorners.addCornerToView(view: cancelBtn)
         viewCorners.addCornerToView(view: goButton)
-//        viewCorners.addShadowToView(view: txtOuterView, value: 1.0)
+        //        viewCorners.addShadowToView(view: txtOuterView, value: 1.0)
         viewCorners.addCornerToView(view: txtView, value: 10.0)
         viewCorners.addCornerToView(view: nameTxt, value: 10.0)
         viewCorners.addShadowToView(view: txtView, value: 1.0)
         viewCorners.addShadowToView(view: nameTxt, value: 1.0)
-
-//        viewCorners.addBorderCornerTobutton(view : txtView, color: HexColor(darkGrayColor)!, value: 10.0)
-//        viewCorners.addBorderCornerTobutton(view : nameTxt, color: HexColor(darkGrayColor)!, value: 10.0)
-
+        //        viewCorners.addBorderCornerTobutton(view : txtView, color: HexColor(darkGrayColor)!, value: 10.0)
+        //        viewCorners.addBorderCornerTobutton(view : nameTxt, color: HexColor(darkGrayColor)!, value: 10.0)
+        
+        fetchReviewByMovieId()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,7 +72,7 @@ class AddRatingView: UIViewController, UITextViewDelegate {
     }
     
     func firebaseSetup() {
-            let setting = FirestoreSettings()
+        let setting = FirestoreSettings()
         Firestore.firestore().settings = setting
         db = Firestore.firestore()
     }
@@ -88,7 +89,6 @@ class AddRatingView: UIViewController, UITextViewDelegate {
             if (Reachability()?.connection != .none) {
                 userRating = ratingView.value
                 addCommentByUser(review: txtView.text!, userRating: Float(userRating), userName: nameTxt.text!)
-                
             } else {
                 displayError(str: noInternetMessage, view: self)
             }
@@ -100,90 +100,27 @@ class AddRatingView: UIViewController, UITextViewDelegate {
     }
     
     func addCommentByUser(review : String, userRating : Float, userName: String) {
-        //        self.refreshHomeUIDelegate.refreshView(currentIndex: self.currentIndex)
-        alert.showWait(loadingTitle, subTitle: "", colorStyle: int_red)
-        let info = CommentRequestModelVC(userName: userName, userReview: review, userRating: userRating, movieId: movieId)
-        let data_temp = Mapper<CommentRequestModelVC>().toJSON(info)
-        var ref: DocumentReference? = nil
-
-        ref = Firestore.firestore().collection("movieMania").document("\(movieId)/user1")
-        
-        ref?.setData(data_temp, completion: { (error) in
-            alert.hideView()
-            if let err = error {
-                
-                displayError(str: err as! String, view: self)
-            } else {
-                displayError(str: "Review added successfully.", view: self, title: "Success")
-                self.dismiss(animated: true, completion: nil)
-            }
-        })
-        
-//
-//        let info = CommentRequestModelVC(userName: userName, userReview: review, userRating: userRating)
-//        let data_temp = Mapper<CommentRequestModelVC>().toJSON(info)
-        //            print("view post request:- \(data_temp)")
-//        alamofireManager.request(addComment, method: .post, parameters: data_temp, encoding: JSONEncoding(options: []), headers: tokenHeader).responseObject{ (response: DataResponse<ResponseModel> )in
-//
-//            switch response.result
-//            {
-//            case .success(let value):
-//                if let code = value.code {
-//                    switch code {
-//                    case 200:
-//                        alert.hideView()
-//
-//                        if let msg = value.message {
-//                            displayError(str: msg, view: self, title: "Success")
-//                        }
-//                        if let commentList = value.viewPostResponseModel?.comment_list {
-//                            self.refreshHomeUIDelegate.refreshView(currentIndex: self.currentIndex, commentArr : commentList)
-//
-//                        }
-//                        self.dismiss(animated: true, completion: nil)
-//                        break
-//                    case 400:
-//                        alert.hideView()
-//                        clearSession()
-//                        redirectToSignUpVC(vc: self)
-//                        break
-//                    case 401:
-//                        alert.hideView()
-//                        if let new_token = value.viewPostResponseModel?.new_token {
-//                            UserDefaults.standard.set(new_token, forKey: "token")
-//                            self.addCommentByUser(review: review, userRating: userRating, userName: userName)
-//
-//                        }else {
-//                            clearSession()
-//                            redirectToSignUpVC(vc: self)
-//                        }
-//                        break
-//                    default:
-//                        alert.hideView()
-//
-//                        if let msg = value.message {
-//                            displayError(str: msg, view: self, title: "Success")
-//                        }
-//                        self.dismiss(animated: true, completion: nil)
-//
-//                    }
-//                }
-//                break
-//            case .failure(let error):
-//                print("Request failed with error: \(error.localizedDescription)")
-//                alert.hideView()
-//                displayError(str: serverError, view: self, title: "Success")
-//                self.dismiss(animated: true, completion: nil)
-//
-//                break
-//            }
-//
-//        }
-        //                .responseJSON { response in
-        //                    print("response saveUnsavedVideo:- \(response.result.value)")
-        //
-        //            }
-        
+        if reviewUserList.contains(userName) {
+            displayError(str: "You already given the review.", view: self)
+        } else {
+            alert.showWait(loadingTitle, subTitle: "", colorStyle: int_red)
+            let info = CommentRequestModelVC(userName: userName, userReview: review, userRating: userRating)//, movieId: movieId)
+            let data_temp = Mapper<CommentRequestModelVC>().toJSON(info)
+            var ref: DocumentReference? = nil
+            
+            ref = Firestore.firestore().collection("movieMania").document("Movies/\(movieId!)/\(userName)")
+            
+            ref?.setData(data_temp, completion: { (error) in
+                alert.hideView()
+                if let err = error {
+                    
+                    displayError(str: err as! String, view: self)
+                } else {
+                    displayError(str: "Review added successfully.", view: self, title: "Success")
+                    self.dismiss(animated: true, completion: nil)
+                }
+            })
+        }
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -201,7 +138,12 @@ class AddRatingView: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func ratingBtnClicked(_ sender: Any) {
-        perform(#selector(flip), with: nil, afterDelay: 2)
+        print("rate:- \(ratingView.value)")
+        if ratingView.value == 0 {
+            displayError(str: "Please give atleast one star.", view: self)
+        } else {
+            perform(#selector(flip), with: nil, afterDelay: 2)
+        }
     }
     
     @objc func flip() {
@@ -224,9 +166,22 @@ class AddRatingView: UIViewController, UITextViewDelegate {
         placeHolder = NSMutableAttributedString(string:Name, attributes: [NSAttributedString.Key.font:UIFont(name: "Lato-Regular", size: 14.0)!])
         
         // Set the color
-        placeHolder.addAttribute(NSAttributedString.Key.foregroundColor, value: HexColor(darkGrayColor)!, range:NSRange(location:0,length:Name.characters.count))
+        placeHolder.addAttribute(NSAttributedString.Key.foregroundColor, value: HexColor(darkGrayColor)!, range:NSRange(location:0,length:Name.count))
         
         // Add attribute
         nameTxt.attributedPlaceholder = placeHolder
+    }
+    
+    func fetchReviewByMovieId() {
+        let docRef = db.collection("movieMania").document("Movies").collection("\(movieId!)")
+        docRef.getDocuments(completion: { (document, error) in
+            if let doc = document {
+                for i in 0..<doc.documents.count {
+                    self.reviewUserList.append(doc.documents[i].documentID)
+                }
+            } else {
+                print("Document does not exist")
+            }
+        })
     }
 }

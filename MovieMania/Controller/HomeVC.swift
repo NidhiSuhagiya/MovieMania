@@ -28,12 +28,13 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     let searchView = UIView(frame: CGRect(x: 0, y: 0, width: screenWidth - 80, height: 35))
     let searchImg = UIImageView()
     var is_running : Bool = false
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigationBar()
         self.view.backgroundColor = HexColor(lightGrayColor)
+        
         // Do any additional setup after loading the view, typically from a nib.
         tableview.delegate = self
         tableview.dataSource = self
@@ -47,7 +48,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 250
+        return 200
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -62,21 +63,18 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "movieListCell") as! MovieListCell
         let item = movieList[indexPath.row]
-        cell.movieThumbnail.frame.size.width = cell.outerView.frame.size.width * 0.4
-        viewCorners.addShadowToView(view: cell.outerView, value: 5.0)
+        cell.movieThumbnail.frame.size.width = cell.outerView.frame.size.width * 0.35
+        viewCorners.addShadowToView(view: cell.outerView, value: 2.0)
         
         if let img = item.poster {
             cell.movieThumbnail.sd_setShowActivityIndicatorView(true)
             cell.movieThumbnail.sd_setIndicatorStyle(.gray)
             cell.movieThumbnail.sd_setImage(with: URL(string: img), placeholderImage: UIImage(named: "ic_default"))
-            
         } else {
             cell.movieThumbnail.image = UIImage(named: "ic_default")
         }
-        
         cell.movieTitleLbl.text = (item.title != nil) ? item.title : "N/A"
         cell.movieReleaseDate.text = (item.year != nil) ? item.year : "N/A"
-        
         return cell
     }
     
@@ -86,7 +84,8 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
-    //    Set NavigationBar
+//    #MARK:- Set NavigationBar
+    
     func configureNavigationBar()
     {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: HexColor("ffffff")!, NSAttributedString.Key.font: UIFont(name: "Lato-Bold", size: 20)!]
@@ -96,10 +95,8 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         navigationController?.navigationBar.barTintColor = HexColor(redColor)
         navigationController?.navigationBar.tintColor = HexColor("ffffff")
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
-        //        navigationItem.titleView = searchBar
+
         searchTxt.leftViewMode = .always
-        
         searchTxt.frame = CGRect(x: searchView.frame.origin.x + 5, y: 0, width: searchView.frame.size.width - 5, height: 35)
         
         let placeholderAlignment = NSMutableParagraphStyle()
@@ -113,11 +110,8 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         searchImg.frame = CGRect(x: ((searchTxt.frame.size.width / 2) - 10) + width, y: ((searchTxt.frame.size.height / 2)) - 8 , width: 15, height: 15)
         searchImg.contentMode = .scaleAspectFit
         searchImg.image = UIImage(named: "ic_txtSearch")
-        
         searchTxt.addSubview(searchImg)
-        
         navigationItem.titleView = searchTxt
-        
     }
     
     func addActivityIndicator() {
@@ -131,21 +125,18 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     }
     
     func addNoDataView() {
-        let navHeight = self.navigationController?.navigationBar.frame.size.height
         
-        noDataView = NoDataView(frame: CGRect(x: 0, y: 0 , width: self.view.frame.size.width, height: self.view.frame.size.height - navHeight!))
+        noDataView = NoDataView(frame: CGRect(x: 0, y: 0 , width: self.view.frame.size.width, height: self.view.frame.size.height))
         noDataView.backgroundColor = HexColor(lightGrayColor)
         noDataView.errorIconsHidden = false
         noDataView.configureView(message: "No data found.", image: UIImage(named: "ic_empty")!)
-        //        noDataView.tapButton.addTarget(self, action: #selector(self.noDataButtonClicked), for: .touchUpInside)
         self.view.addSubview(noDataView)
         //        self.noDataView.isHidden = true
     }
     
     func addErrorView() {
-        let navHeight = self.navigationController?.navigationBar.frame.size.height
         
-        errorView = NoDataView(frame: CGRect(x: 0, y: 0 , width: self.view.frame.size.width, height: self.view.frame.size.height -  navHeight!))
+        errorView = NoDataView(frame: CGRect(x: 0, y: 0 , width: self.view.frame.size.width, height: self.view.frame.size.height))
         errorView.backgroundColor = HexColor(lightGrayColor)
         errorView.errorIconsHidden = false
         errorView.configureView(message: failureViewMsg, image: UIImage(named: "ic_error")!)
@@ -162,9 +153,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
             searchMovieByTitle(searchStr: searchTxt.text!)
         } else {
             errorView.isHidden = false
-            
         }
-
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -180,23 +169,17 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                     tableview.reloadData()
                     noDataView.isHidden = false
                     
-                    
                     if (Reachability()?.connection != .none) {
                         if !(noDataView.isHidden) {
                             noDataView.isHidden = true
                             activityIndicatorView.startAnimating()
                         }
                         searchMovieByTitle(searchStr: updatedText)
-
-                        
                     } else {
-                        
                         displayError(str: noInternetMessage, view: self)
                         displayFailureView()
-                        
                     }
                 }
-                
             } else {
                 searchImg.isHidden = false
                 movieList = []
@@ -207,21 +190,13 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
         return true
     }
     
-    //    search movie by title api
+    //#MARK:-  Search movie by title api
     func searchMovieByTitle(searchStr: String) {
         is_running = true
-
-//        //Object to be serialized to JSON
-//        let user = SearchMoviewRequestModel(t: searchStr, type: "movie")
-//        //convert object to dictionary
-//        let data_temp = Mapper<SearchMoviewRequestModel>().toJSON(user)
-//                print(" request data:- \(data_temp)")
         let searchNewMovieUrl = searchMovieUrl + "&s=" + searchStr + "&type=movie"
-    
+        
         alamofireManager.request(searchNewMovieUrl).responseObject{ (response: DataResponse<ResponseModel> )in
-            //                    let responseClass = response.result.value
             self.is_running = false
-
             switch response.result
             {
                 
@@ -229,7 +204,6 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                 if let response = value.response {
                     if response.lowercased() == "true" {
                         self.activityIndicatorView.stopAnimating()
-                        //                        self.is_running = false
                         alert.hideView()
                         self.view.endEditing(true)
                         if self.errorView != nil {
@@ -243,9 +217,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                         } else {
                             self.movieList = []
                         }
-                        
                         self.tableview.reloadData()
-
                     } else {
                         self.activityIndicatorView.stopAnimating()
                         alert.hideView()
@@ -261,7 +233,6 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                         }
                     }
                 }
-
                 break
             case .failure(let error):
                 print("error:- \(error.localizedDescription)")
@@ -270,16 +241,11 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                     self.view.endEditing(true)
                     displayError(str: serverError, view: self)
                     self.displayFailureView()
-                    
                 }
                 break
-                
             }
-            
-            }
-            .responseJSON { response in
+            }.responseJSON { response in
                 print("response searchMovie:- \(response.result.value)")
-                
         }
     }
     

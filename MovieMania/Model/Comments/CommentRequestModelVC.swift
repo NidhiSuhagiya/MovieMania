@@ -31,6 +31,14 @@ class CommentRequestModelVC: Mappable {
         
     }
     
+    init(userName: String?, userReview: String?, userRating: Float?) {
+        
+        self.userName = userName
+        self.userReview = userReview
+        self.userRating = userRating        
+        
+    }
+    
     func mapping(map: Map) {
         userName <- map["userName"]
         userReview <- map["userReview"]

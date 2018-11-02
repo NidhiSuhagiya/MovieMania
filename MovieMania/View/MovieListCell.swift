@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SwiftyStarRatingView
 
 class MovieListCell: UITableViewCell {
     
@@ -20,5 +21,16 @@ class MovieListCell: UITableViewCell {
         super.layoutSubviews()
 //        movieThumbnail.frame.size.width = outerView.frame.size.width * 0.4
     }
+
+}
+
+
+class ReviewListCell: UITableViewCell {
+    
+    @IBOutlet weak var ratingView: SwiftyStarRatingView!
+    @IBOutlet weak var outerView: UIView!
+    @IBOutlet var userProfileImg: UIImageView!
+    @IBOutlet var userNameLbl: UILabel!
+    @IBOutlet var userReviewLbl: UILabel!
 
 }

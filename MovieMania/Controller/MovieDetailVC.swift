@@ -31,6 +31,7 @@ class MovieDetailVC: UIViewController {
     @IBOutlet weak var ratingBtn: UIButton!
     @IBOutlet weak var addReviewBtn: UIButton!
     @IBOutlet weak var viewReviewBtn: UIButton!
+    @IBOutlet weak var imdbRating: UILabel!
     
     var selectedMovie: searchMovieList!
     var getSelectedMovieData : SearchMovieResponseModel!
@@ -44,13 +45,12 @@ class MovieDetailVC: UIViewController {
         self.navigationItem.title = "MovieMania"
         viewCorners.addCornerToView(view: addReviewBtn)
         viewCorners.addCornerToView(view: viewReviewBtn)
-
+        viewCorners.addShadowToView(view: moviePosterImg)
         activityIndicatorView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 40, width: 50.0, height: 50.0), type: NVActivityIndicatorType.ballClipRotate, color: HexColor(redColor), padding: 0)
         activityIndicatorView.center = self.view.center
         self.view.addSubview(activityIndicatorView)
-//        self.view.backgroundColor = HexColor(lightGrayColor)
         addNoDataView()
-
+        
         if let imdbId = selectedMovie.imdbId {
             searchMovieDetail(movieId: imdbId)
         } else {
@@ -64,22 +64,23 @@ class MovieDetailVC: UIViewController {
                 moviePosterImg.sd_setShowActivityIndicatorView(true)
                 moviePosterImg.sd_setIndicatorStyle(.gray)
                 moviePosterImg.sd_setImage(with: URL(string: img), placeholderImage: UIImage(named: "ic_default"))
-                
             } else {
                 moviePosterImg.image = UIImage(named: "ic_default")
             }
+            movieLanguage.text = (getSelectedMovieData.language != nil) ? getSelectedMovieData.language : "N/A"
             movieTitle.text = (getSelectedMovieData.title != nil) ? getSelectedMovieData.title : "N/A"
             movieReleaseDate.text = (getSelectedMovieData.releaseDate != nil) ? getSelectedMovieData.releaseDate : ((getSelectedMovieData.year != nil) ? getSelectedMovieData.year : "N/A")
-            movieDescription.text = ""
+            movieDescription.text = (getSelectedMovieData.plot != nil) ? getSelectedMovieData.plot : "N/A"
             movieDirector.text = (getSelectedMovieData.director != nil) ? getSelectedMovieData.director : "N/A"
             movieDuration.text = (getSelectedMovieData.duration != nil) ? getSelectedMovieData.duration : "N/A"
+            imdbRating.text = (getSelectedMovieData.imdbRating != nil) ? "\(getSelectedMovieData.imdbRating!)" : "N/A"
         } else {
             if selectedMovie != nil {
+                
                 if let img = selectedMovie.poster {
                     moviePosterImg.sd_setShowActivityIndicatorView(true)
                     moviePosterImg.sd_setIndicatorStyle(.gray)
                     moviePosterImg.sd_setImage(with: URL(string: img), placeholderImage: UIImage(named: "ic_default"))
-                    
                 } else {
                     moviePosterImg.image = UIImage(named: "ic_default")
                 }
@@ -90,20 +91,16 @@ class MovieDetailVC: UIViewController {
                 movieDirector.text = "N/A"
                 movieDuration.text = "N/A"
             }
-            
         }
-        
     }
     
     func searchMovieDetail(movieId: String) {
         let searchNewMovieUrl = searchMovieUrl + "&i=" + movieId
         
         alamofireManager.request(searchNewMovieUrl).responseObject{ (response: DataResponse<SearchMovieResponseModel> )in
-            //                    let responseClass = response.result.value
             
             switch response.result
             {
-                
             case .success(let value):
                 if let response = value.response {
                     if response.lowercased() == "true" {
@@ -119,14 +116,12 @@ class MovieDetailVC: UIViewController {
                         }
                         self.getSelectedMovieData = value
                         self.setMoviewData()
-                        
                     } else {
                         self.activityIndicatorView.stopAnimating()
                         alert.hideView()
                         self.setMoviewData()
                     }
                 }
-                
                 break
             case .failure(let error):
                 print("error:- \(error.localizedDescription)")
@@ -135,16 +130,11 @@ class MovieDetailVC: UIViewController {
                     self.view.endEditing(true)
                     displayError(str: serverError, view: self)
                     self.displayFailureView()
-                    
                 }
                 break
-                
             }
-            
-            }
-            .responseJSON { response in
+            }.responseJSON { response in
                 print("response searchMovie:- \(response.result.value)")
-                
         }
     }
     
@@ -158,21 +148,16 @@ class MovieDetailVC: UIViewController {
     }
     
     func addNoDataView() {
-        let navHeight = self.navigationController?.navigationBar.frame.size.height
-        
-        noDataView = NoDataView(frame: CGRect(x: 0, y: 0 , width: self.view.frame.size.width, height: self.view.frame.size.height - navHeight!))
+        noDataView = NoDataView(frame: CGRect(x: 0, y: 0 , width: self.view.frame.size.width, height: self.view.frame.size.height))
         noDataView.backgroundColor = HexColor(lightGrayColor)
         noDataView.errorIconsHidden = false
         noDataView.configureView(message: "No data found.", image: UIImage(named: "ic_empty")!)
-        //        noDataView.tapButton.addTarget(self, action: #selector(self.noDataButtonClicked), for: .touchUpInside)
         self.view.addSubview(noDataView)
-        //        self.noDataView.isHidden = true
+        self.noDataView.isHidden = true
     }
     
     func addErrorView() {
-        let navHeight = self.navigationController?.navigationBar.frame.size.height
-        
-        errorView = NoDataView(frame: CGRect(x: 0, y: 0 , width: self.view.frame.size.width, height: self.view.frame.size.height -  navHeight!))
+        errorView = NoDataView(frame: CGRect(x: 0, y: 0 , width: self.view.frame.size.width, height: self.view.frame.size.height))
         errorView.backgroundColor = HexColor(lightGrayColor)
         errorView.errorIconsHidden = false
         errorView.configureView(message: failureViewMsg, image: UIImage(named: "ic_error")!)
@@ -182,18 +167,14 @@ class MovieDetailVC: UIViewController {
     }
     
     @objc func errorButtonClicked(sender : UIButton) {
-        
         if (Reachability()?.connection != .none) {
             errorView.isHidden = true
             activityIndicatorView.startAnimating()
             searchMovieDetail(movieId: selectedMovie.imdbId!)
         } else {
             errorView.isHidden = false
-            
         }
-        
     }
-    
     
     @IBAction func ratingBtnClicked(_ sender: Any) {
         showCommentPopup(animated: true)
@@ -201,22 +182,23 @@ class MovieDetailVC: UIViewController {
     
     func showCommentPopup(animated:Bool){
         if animated {
-            
             let popOverVC = storyBoard.instantiateViewController(withIdentifier: "AddRatingView") as! AddRatingView
             popOverVC.modalPresentationStyle = .overFullScreen
             popOverVC.modalTransitionStyle = .crossDissolve
             popOverVC.movieId = (getSelectedMovieData != nil) ? getSelectedMovieData.imdbID : selectedMovie.imdbId
             popOverVC.navigationController?.navigationBar.barTintColor = HexColor(redColor)
             self.navigationController?.present(popOverVC, animated: true, completion: nil)
-            
         }else{
             print("failed to load popup")
         }
     }
     
-    
     @IBAction func viewRatingBtnClicked(_ sender: Any) {
+        let popOverVC = storyBoard.instantiateViewController(withIdentifier: "ViewRatingVC") as! ViewRatingVC
+        popOverVC.modalPresentationStyle = .overFullScreen
+        popOverVC.modalTransitionStyle = .crossDissolve
+        popOverVC.movieId = (getSelectedMovieData != nil) ? getSelectedMovieData.imdbID : selectedMovie.imdbId
+        popOverVC.navigationController?.navigationBar.barTintColor = HexColor(redColor)
+        self.navigationController?.present(popOverVC, animated: true, completion: nil)
     }
-    
-
 }

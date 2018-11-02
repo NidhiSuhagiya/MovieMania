@@ -12,7 +12,7 @@ import UIKit
 import SCLAlertView
 
 let blueColor = "1c1364"
-let redColor = "df0037"
+let redColor = "E04462"//"df0037"
 let blackColor = "141414"
 let darkGrayColor = "707070"
 let lightGrayColor = "f4f4f4"

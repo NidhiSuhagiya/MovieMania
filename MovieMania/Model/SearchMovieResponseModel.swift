@@ -64,7 +64,7 @@ class SearchMovieResponseModel : Mappable {
     public var plot : String?
     public var awards : String?
     public var poster : String?
-    public var imdbRating : Double?
+    public var imdbRating : String?
     public var imdbID : String?
     public var production : String?
     public var movieRating : [MovieRatings]?
@@ -84,7 +84,7 @@ class SearchMovieResponseModel : Mappable {
         genre <- map["Genre"]
         duration <- map["Runtime"]
         writer <- map["Writer"]
-        director <- map["director"]
+        director <- map["Director"]
         actors <- map["Actors"]
         plot <- map["Plot"]
         language <- map["Language"]
