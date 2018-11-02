@@ -220,11 +220,10 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                         alert.hideView()
                         self.view.endEditing(true)
                         if let error = value.error {
-                            if error == "Too many results." {
-                                self.displayFailureView()
-                            } else if error == "Movie not found!"{
+                            if error == "Too many results." || error == "Movie not found!" {
                                 self.noDataView.isHidden = false
                             } else {
+                                self.displayFailureView()
                                 displayError(str: error, view: self)
                             }
                         }
