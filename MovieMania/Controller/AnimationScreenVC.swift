@@ -28,6 +28,7 @@ class AnimationScreenVC : UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+//        change view position for animation
         self.outerViewTopConstant.constant = self.outerViewTopConstant.constant + 60
 //        self.lblBottomConstant.constant = self.lblBottomConstant.constant + 50
         setAnimatedView()
@@ -48,6 +49,7 @@ class AnimationScreenVC : UIViewController {
         self.present(nav, animated: true, completion: nil)
     }
     
+//    View transition effect
     
     func setAnimatedView() {
             UIView.animate(withDuration: 0.35, delay: 0.3, options: .curveEaseOut, animations: {
@@ -56,6 +58,5 @@ class AnimationScreenVC : UIViewController {
                 self.titleLbl.alpha = 1
                 self.view.layoutIfNeeded()
             }, completion: nil)
-        
     }
 }

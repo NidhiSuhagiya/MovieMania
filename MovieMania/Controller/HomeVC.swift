@@ -125,7 +125,6 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     }
     
     func addNoDataView() {
-        
         noDataView = NoDataView(frame: CGRect(x: 0, y: 0 , width: self.view.frame.size.width, height: self.view.frame.size.height))
         noDataView.backgroundColor = HexColor(lightGrayColor)
         noDataView.errorIconsHidden = false
@@ -135,7 +134,6 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     }
     
     func addErrorView() {
-        
         errorView = NoDataView(frame: CGRect(x: 0, y: 0 , width: self.view.frame.size.width, height: self.view.frame.size.height))
         errorView.backgroundColor = HexColor(lightGrayColor)
         errorView.errorIconsHidden = false
@@ -146,7 +144,6 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     }
     
     @objc func errorButtonClicked(sender : UIButton) {
-        
         if (Reachability()?.connection != .none) {
             errorView.isHidden = true
             activityIndicatorView.startAnimating()
@@ -244,9 +241,10 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                 }
                 break
             }
-            }.responseJSON { response in
-                print("response searchMovie:- \(response.result.value)")
-        }
+            }
+//            .responseJSON { response in
+//                print("response searchMovie:- \(response.result.value)")
+//        }
     }
     
     func displayFailureView() {

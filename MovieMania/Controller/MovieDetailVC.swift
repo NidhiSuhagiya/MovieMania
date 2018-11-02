@@ -51,6 +51,7 @@ class MovieDetailVC: UIViewController {
         self.view.addSubview(activityIndicatorView)
         addNoDataView()
         
+//        Search movie detail based on imdbId
         if let imdbId = selectedMovie.imdbId {
             searchMovieDetail(movieId: imdbId)
         } else {
@@ -76,7 +77,6 @@ class MovieDetailVC: UIViewController {
             imdbRating.text = (getSelectedMovieData.imdbRating != nil) ? "\(getSelectedMovieData.imdbRating!)" : "N/A"
         } else {
             if selectedMovie != nil {
-                
                 if let img = selectedMovie.poster {
                     moviePosterImg.sd_setShowActivityIndicatorView(true)
                     moviePosterImg.sd_setIndicatorStyle(.gray)
@@ -133,8 +133,6 @@ class MovieDetailVC: UIViewController {
                 }
                 break
             }
-            }.responseJSON { response in
-                print("response searchMovie:- \(response.result.value)")
         }
     }
     

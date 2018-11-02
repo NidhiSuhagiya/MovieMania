@@ -1,9 +1,9 @@
 //
 //  Validation.swift
-//  MindFit
+//  MovieMania
 //
-//  Created by ob_apple_2 on 8/25/17.
-//  Copyright © 2017 ob_apple_2. All rights reserved.
+//  Created by admin on 01/11/18.
+//  Copyright © 2018 admin. All rights reserved.
 //
 
 import Foundation
@@ -16,16 +16,11 @@ func isValidEmail(testStr:String) -> Bool {
 }
 
 func checkLength(testStr:String) -> Bool {
-    if testStr.trimmingCharacters(in: .whitespaces).isEmpty || testStr.characters.count<0{
+    if testStr.trimmingCharacters(in: .whitespaces).isEmpty || testStr.count<0{
         return false
     } else {
         return true
     }
-//    if testStr.characters.count>0 {
-//        return true
-//    }else{
-//        return false
-//    }
 }
 
 func validateTextView(testStr:String) -> Bool {

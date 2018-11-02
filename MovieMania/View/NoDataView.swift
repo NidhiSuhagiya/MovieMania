@@ -1,9 +1,9 @@
 //
 //  NoDataView.swift
-//  MindFit
+//  MovieMania
 //
-//  Created by ob_apple_2 on 8/30/17.
-//  Copyright © 2017 ob_apple_2. All rights reserved.
+//  Created by admin on 01/11/18.
+//  Copyright © 2018 admin. All rights reserved.
 //
 
 import Foundation
@@ -30,19 +30,11 @@ class NoDataView: UIView {
         if errorIconsHidden {
             differenceY = 0
         }
-        //        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
-        //        label.numberOfLines = 0
-        //        label.lineBreakMode = NSLineBreakMode.byWordWrapping
-        //        label.font = font
-        //        label.text = text
-        //        label.sizeToFit()
+
         for i in self.subviews {
             i.removeFromSuperview()
         }
-//        if errorLabel != nil {
-//            self.errorLabel.removeFromSuperview()
-//            self.tapButton.removeFromSuperview()
-//        }
+
         errorLabel = UILabel(frame: CGRect(x: 10, y: 0, width: self.frame.size.width-20, height: CGFloat.greatestFiniteMagnitude))
         errorLabel.font = UIFont(name: "OpenSans-Regular", size: 13)
         errorLabel.numberOfLines = 0

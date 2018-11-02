@@ -1,9 +1,9 @@
 //
 //  ViewCorners.swift
-//  WOC
+//  MovieMania
 //
-//  Created by ob_apple_1 on 23/01/17.
-//  Copyright © 2017 OptimumBrew. All rights reserved.
+//  Created by admin on 01/11/18.
+//  Copyright © 2018 admin. All rights reserved.
 //
 
 import Foundation

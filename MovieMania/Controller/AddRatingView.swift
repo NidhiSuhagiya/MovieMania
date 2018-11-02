@@ -54,13 +54,10 @@ class AddRatingView: UIViewController, UITextViewDelegate {
         viewCorners.addCornerToView(view: commentBtn)
         viewCorners.addCornerToView(view: cancelBtn)
         viewCorners.addCornerToView(view: goButton)
-        //        viewCorners.addShadowToView(view: txtOuterView, value: 1.0)
         viewCorners.addCornerToView(view: txtView, value: 10.0)
         viewCorners.addCornerToView(view: nameTxt, value: 10.0)
         viewCorners.addShadowToView(view: txtView, value: 1.0)
         viewCorners.addShadowToView(view: nameTxt, value: 1.0)
-        //        viewCorners.addBorderCornerTobutton(view : txtView, color: HexColor(darkGrayColor)!, value: 10.0)
-        //        viewCorners.addBorderCornerTobutton(view : nameTxt, color: HexColor(darkGrayColor)!, value: 10.0)
         
         fetchReviewByMovieId()
     }
@@ -100,20 +97,25 @@ class AddRatingView: UIViewController, UITextViewDelegate {
     }
     
     func addCommentByUser(review : String, userRating : Float, userName: String) {
+        
+        //        Check current user already given review or not based on user name
+
         if reviewUserList.contains(userName) {
             displayError(str: "You already given the review.", view: self)
         } else {
             alert.showWait(loadingTitle, subTitle: "", colorStyle: int_red)
             let info = CommentRequestModelVC(userName: userName, userReview: review, userRating: userRating)//, movieId: movieId)
             let data_temp = Mapper<CommentRequestModelVC>().toJSON(info)
+            
+            //            Store data to firebase database
             var ref: DocumentReference? = nil
             
+            //            Create new collection if not exist and create new documents
             ref = Firestore.firestore().collection("movieMania").document("Movies/\(movieId!)/\(userName)")
             
             ref?.setData(data_temp, completion: { (error) in
                 alert.hideView()
                 if let err = error {
-                    
                     displayError(str: err as! String, view: self)
                 } else {
                     displayError(str: "Review added successfully.", view: self, title: "Success")
@@ -146,6 +148,8 @@ class AddRatingView: UIViewController, UITextViewDelegate {
         }
     }
     
+    //    View transition effect
+    
     @objc func flip() {
         let transitionOptions: UIView.AnimationOptions = [.transitionFlipFromRight, .showHideTransitionViews]
         
@@ -158,6 +162,7 @@ class AddRatingView: UIViewController, UITextViewDelegate {
         })
     }
     
+    //    Change placeholder color of textfield
     func setPlaceholderToTextField() {
         var placeHolder = NSMutableAttributedString()
         let Name  = " Enter your name"
@@ -172,6 +177,7 @@ class AddRatingView: UIViewController, UITextViewDelegate {
         nameTxt.attributedPlaceholder = placeHolder
     }
     
+    //    Fetch data from firebase
     func fetchReviewByMovieId() {
         let docRef = db.collection("movieMania").document("Movies").collection("\(movieId!)")
         docRef.getDocuments(completion: { (document, error) in

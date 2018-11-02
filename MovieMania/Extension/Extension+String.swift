@@ -1,9 +1,9 @@
 //
 //  Extension+String.swift
-//  Maystr
+//  MovieMania
 //
-//  Created by ob_apple_2 on 4/11/18.
-//  Copyright © 2018 ob_apple_2. All rights reserved.
+//  Created by admin on 01/11/18.
+//  Copyright © 2018 admin. All rights reserved.
 //
 
 import Foundation
