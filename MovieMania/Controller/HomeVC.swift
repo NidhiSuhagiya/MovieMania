@@ -190,9 +190,12 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
     //#MARK:-  Search movie by title api
     func searchMovieByTitle(searchStr: String) {
         is_running = true
-        let searchNewMovieUrl = searchMovieUrl + "&s=" + searchStr + "&type=movie"
         
-        alamofireManager.request(searchNewMovieUrl).responseObject{ (response: DataResponse<ResponseModel> )in
+        let user = SearchMoviewRequestModel(t: searchStr, type: "movie")
+        let data_temp = Mapper<SearchMoviewRequestModel>().toJSON(user)
+//        let searchNewMovieUrl = searchMovieUrl + "&s=" + searchStr + "&type=movie"
+        alamofireManager.request(searchMovieUrl, method: .get, lparameters: data_temp, headers: nil).responseObject{ (response: DataResponse<ResponseModel> )in
+//        alamofireManager.request(searchNewMovieUrl).responseObject{ (response: DataResponse<ResponseModel> )in
             self.is_running = false
             switch response.result
             {
@@ -241,9 +244,9 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITe
                 break
             }
             }
-//            .responseJSON { response in
-//                print("response searchMovie:- \(response.result.value)")
-//        }
+            .responseJSON { response in
+                print("response searchMovie:- \(response.result.value)")
+        }
     }
     
     func displayFailureView() {
